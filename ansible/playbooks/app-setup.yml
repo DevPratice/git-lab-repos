@@ -61,13 +61,14 @@
         name: java
         state: installed
     
-    - name
+    - name: Get Tar file from url
+      shell: echo {{TOMCAT_URL}} | awk -F / '{print $NF}' | sed -e 's/.tar.gz//'
+      register: out
+      
+    
     - name: Define tomcat directory Fact
       set_fact:
         TOMCAT_LOCATION: "{{TOMCAT_BASE_DIR}}/{{out.stdout}}"
-: Get Tar file from url
-      shell: echo {{TOMCAT_URL}} | awk -F / '{print $NF}' | sed -e 's/.tar.gz//'
-      register: out
 
     ### Commented because we can download and extract with next task
     #- name: Download tomcat
